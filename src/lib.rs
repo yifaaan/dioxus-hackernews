@@ -1,11 +1,16 @@
 mod api;
+mod ui;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
+pub use ui::App;
+
+/// https://github.com/HackerNews/API
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StoryItem {
     pub id: i64,
     pub title: String,
+    pub by: String,
     pub url: Option<String>,
     pub text: Option<String>,
     #[serde(default)]
