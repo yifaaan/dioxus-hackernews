@@ -9,8 +9,8 @@ enum Route {
     Home {},
     #[route("/blog/:id")]
     Blog { id: i32 },
-    #[route("/:path")]
-    NotFound { path: String },
+    #[route("/:..route")]
+    NotFound { route: Vec<String> },
 }
 
 fn main() {
@@ -67,13 +67,14 @@ fn Home() -> Element {
 }
 
 #[component]
-fn NotFound(path: String) -> Element {
+fn NotFound(route: Vec<String>) -> Element {
+    let path = route.join("/");
     rsx! {
         div {
             class: "flex flex-col items-center justify-center h-screen",
             h1 {
                 class: "text-3xl p-4",
-                "404 Not Found"
+                "Not Found: The page `/{path}` you request is missing"
             }
         }
     }
